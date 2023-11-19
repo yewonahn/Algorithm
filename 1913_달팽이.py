@@ -1,36 +1,33 @@
 import sys
 
-input = sys.stdin.readline
+def draw():
+    global n
+    x = y = n//2
+    cnt = num = 2
+    d = [(0,1),(1,0),(0,-1),(-1,0)]
+    t = 0
+    board[x][y] = 1; x-=1; y-=1
+
+    while True:
+        for _ in range(4):
+            a,b = d[t]
+            for _ in range(cnt):
+                x+=a; y+=b
+                board[x][y] = num
+                if num==m:
+                    ans[0]=x+1; ans[1]=y+1
+                if num==n**2:
+                    return
+                num+=1
+            t = (t+1)%4
+        cnt+=2
+        x-=1; y-=1
+
 n = int(input())
 m = int(input())
-board = [[0 for _ in range(n)] for _ in range(n)]
-
-dr = [0, 1, 0, -1] # 오른쪽, 아래쪽, 왼쪽, 위쪽 순서
-dc = [1, 0, -1, 0]
-
-r = n//2  # 시작 row
-c = n//2  # 시작 column
-num = 1  # 해당 위치에 들어갈 숫자 1씩 증가 예정
-len = 0  # 특정 방향으로 이동할 길이 얼마나 더할지
-
-board[r][c] = num
-
-while True:
-    for i in range(4):
-        for _ in range(len):  # 특정 방향으로 한 칸씩 이동하며 숫자 입력
-            r+=dr[i]
-            c+=dc[i]
-            num+=1
-            board[r][c]=num
-            if num==m:  # 찾을 번호의 인덱스 저장
-                ans = [r+1, c+1]
-
-    if r==c==0:
-        break
-    r -= 1
-    c -= 1
-    len += 2
-
-for i in range(n):
-    print(*board[i])
+board = [[0]*n for _ in range(n)]
+ans = [n//2+1,n//2+1]
+draw()
+for i in board:
+    print(*i)
 print(*ans)
