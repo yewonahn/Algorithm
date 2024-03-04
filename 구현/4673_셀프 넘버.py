@@ -19,17 +19,16 @@ def divide(n):
 # num : 셀프 넘버가 아닌 케이스
 num = []
 
-n = 1
 result = 0
 
-while result <= 10000:
+for n in range(1, 10001):
     # result : d(n)
-    result = n + divide(n)
-    num.append(result)
-    # print("n : ", n, "result: ", result)
-    n += 1
+    if divide(n) is not None:
+        result = n + divide(n)
+        num.append(result)
+        # print("n : ", n, "result: ", result)
 
-for i in range(1, 10000):
+for i in range(1, 10001):
     # 셀프 넘버 여부(생성자 없는 숫자)
     isSelfNum = True
     for j in num:
