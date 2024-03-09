@@ -1,27 +1,27 @@
+# 풀이 참조
+
 import sys
 input = sys.stdin.readline
 
-# 도화지 100
-# 색종이 10 고정
-
-# 색종이 수
 n = int(input())
-lst = []
-same = 0
-for i in range(n):
-    # x, y
-    x, y = map(int, input().split())
-    lst.append([x, y])
+# 길이 100 도화지
+# 2차원 배열
+# 중복 색칠 되는 case 여러 번 count 하지 않도록,
+# visited 같은 방문 여부 리스트 활용
+total = [[0] * 100 for _ in range(100)]
 
-for a in range(0, n - 1):
-    for b in range(a + 1, n):
-        print("a : ", a, " / b : ", b)
-        if -10 < lst[a][0] - lst[b][0] < 10 and -10 < lst[a][1] - lst[b][1] < 10:
-            same = same + (lst[a][0] + 10 - lst[b][0]) * (lst[b][1] + 10 - lst[a][1])
-            print(a+1, "try)", "same = ", same)
-            # 음수 나오는지 확인
+for _ in range(n):
+    y, x = map(int, input().split())
+    # 색종이 길이 10
+    for y1 in range(y, y + 10):
+        for x1 in range(x, x + 10):
+            # [전체 사각형 = 작은 정사각형 모임] 으로 생각
+            total[y1][x1] = 1
 
-            # 2개 이상이 겹치는 경우
+# total 에서 값 = 1 인 개수 count
+# 2차원 배열 count
+result = 0
+for i in range(100):
+    result += total[i].count(1)
 
-s = 100 * n - same
-print(s)
+print(result)
