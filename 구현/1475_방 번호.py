@@ -1,19 +1,19 @@
+# 풀이 참조
+
 import sys
 input = sys.stdin.readline
 
-# 하나씩 리스트에 저장
-n = list(str(input().strip()))
-for i in range(len(n)):
-    n[i] = int(n[i])
+n = input().strip()
+cnt = [0] * 9
 
-# 최대 중복 개수 저장
-# 6, 9 개수
-max = round((n.count(6) + n.count(9)) // 2)
-
-# 나머지 중복 숫자
 for i in n:
-    if i != 6 and i != 9:
-        if n.count(i) > max:
-            max = n.count(i)
+    # int('\n') : ValueError -> strip()
+    num = int(i)
+    if num == 9:
+        num = 6
+    cnt[num] += 1
 
-print(max)
+# round 사사오입
+cnt[6] = (cnt[6] + 1) // 2
+
+print(max(cnt))
