@@ -13,16 +13,9 @@ k = int(input())
 for b in range(k):
     i, j, x, y = map(int, input().strip().split())
     result = 0
-    if i == x and j != y:
-        for c in range(j, y + 1):
-            result += lst[i][c]
-    elif i != x and j == y:
-        for c in range(i, x + 1):
-            result += lst[c][j]
-    elif i == x and j == y:
-        result = lst[i][j]
-    else:
-        for c in range(i, x + 1):
-            for d in range(j, y + 1):
-                result += lst[c][d]
+
+    for c in range(i, x + 1):
+        for d in range(j, y + 1):
+            result += lst[c][d]
+
     print(result)
