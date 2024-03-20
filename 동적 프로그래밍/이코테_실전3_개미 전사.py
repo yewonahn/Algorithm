@@ -1,3 +1,5 @@
+# [내 풀이] 재귀 함수 이용
+
 import sys
 input = sys.stdin.readline
 
