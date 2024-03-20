@@ -1,3 +1,5 @@
+# [풀이 참조] DP 테이블
+
 import sys
 input = sys.stdin.readline
 
