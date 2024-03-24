@@ -1,4 +1,5 @@
 # 행렬 곱셈 방법 참조
+# 출력 방법 참조
 import sys
 input = sys.stdin.readline
 
@@ -16,7 +17,12 @@ for y in range(n):
         for p in range(m):
             C[y][x] += A[y][p] * B[p][x]
 
-for y in range(n):
-    for x in range(k):
-        print(C[y][x], end=' ')
-    print()
+# 기존 풀이 출력 방법
+# for y in range(n):
+#     for x in range(k):
+#         print(C[y][x], end=' ')
+#     print()
+
+# 출력 방법 참조
+for r in C:
+    print(*r)
