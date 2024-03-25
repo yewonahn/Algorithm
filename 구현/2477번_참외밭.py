@@ -3,48 +3,28 @@ input = sys.stdin.readline
 
 k = int(input())
 
-# 참외 밭의 넓이를 구하면 됨
-length = []
-check = []
+lst_x, lst_y, total = [], [], []
+idx_max_x, idx_max_y = 0, 0
+idx_total_x, idx_total_y = 0, 0
+
 for i in range(6):
-    a, b = map(int, input().split())
-    length.append([a, b])
-    check.append(a)
+    dir, l = map(int, input().split())
+    total.append(l)
+    # dir == 1 / dir == 2 -> 평행
+    if dir == 1 or dir == 2:
+        lst_x.append(l)
+        if max(lst_x) == l:
+            idx_max_x = len(lst_x) - 1
+            idx_total_x = i
+    # dir == 3 / dir == 4 -> 평행
+    else:
+        lst_y.append(l)
+        if max(lst_y) == l:
+            idx_max_y = len(lst_y) - 1
+            idx_total_y = i
 
-# 전체 = 부분 + 부분 -> 부분의 변의 방향 같
-# 쪼개진 부분인 경우 : 방향 count == 2
-s = 0
-c = True
-i = 0
+min_x = abs(total[(idx_total_y - 1) % 6] - total[(idx_total_y + 1) % 6])
+min_y = abs(total[(idx_total_x - 1) % 6] - total[(idx_total_x + 1) % 6])
 
-while c:
-    for j in range(i+1, 6):
-        if length[i][0] == length[j][0]:
-            # first == 20
-            if i + 4 == j:
-                # first == 20
-                if length[i+1][1] < length[i+3][1]:
-                    s = length[i + 2][1] * length[i + 3][1] - length[i][1] * length[i + 5][1]
-                    c = False
-                # first == 100
-                else:
-                    s = length[i + 1][1] * length[i + 2][1] - length[i + 4][1] * length[i + 5][1]
-                    c = False
-            else:
-                # first == 60
-                if i == 0 and check.count(length[5][0]) == 2:
-                    s = length[i + 3][1] * length[i + 4][1] - length[i][1] * length[i + 1][1]
-                    c = False
-                # first == 30
-                else:
-                    if i == 0:
-                        s = length[4][1] * length[5][1] - length[1][1] * length[2][1]
-                        c = False
-                    elif i == 1:
-                        s = length[0][1] * length[5][1] - length[2][1] * length[3][1]
-                        c = False
-                    else:
-                        s = length[0][1] * length[1][1] - length[3][1] * length[4][1]
-                        c = False
-    i += 1
-print(s*k)
+s = max(lst_x) * max(lst_y) - min_x * min_y
+print(s * k)
